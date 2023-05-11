@@ -22,14 +22,6 @@ body{
     top: 80px;
 }
 
-.name{
-    font-weight: normal;
-    color: aliceblue;
-    font-size: 2em;
-    margin-top: 0;
-    margin-bottom: .2em;
-}
-
 .nav{
     display: flex;
     font-weight: normal;
