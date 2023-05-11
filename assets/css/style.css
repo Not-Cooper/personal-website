@@ -10,8 +10,8 @@ body{
 }
 
 .header{
-    margin-bottom: 2.7em;
-    min-height: 190px;
+    margin-bottom: 4em;
+    min-height: 250px;
 }
 
 .header-container{
@@ -56,9 +56,19 @@ a:hover{
     size: 1em;
 }
 
-.zach-info{
+.zach-about{
     color: rgba(240, 248, 255, 0.668);
     position: relative;
     font-size: 4em;
     height: fit-content;
+}
+
+.footer{
+    margin-bottom: 1em;
+    min-height: 100px;
+}
+
+.contact-info{
+    display: flex;
+    flex-direction: column;
 }
