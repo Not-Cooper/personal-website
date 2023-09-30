@@ -43,9 +43,17 @@ a{
 }
 
 a:hover{
-    box-shadow: inset 500px 0 0 0 grey;
+    box-shadow: inset 900px 0 0 0 grey;
     color: rgb(15, 8, 47);
     size: 1em;
+}
+
+.project a{
+
+}
+
+.project a:hover{
+    box-shadow: inset 500px 0px 0px 0px rgb(214, 222, 222);
 }
 
 .zach-about{
@@ -74,4 +82,29 @@ a:hover{
 .project{
     display: flex;
     flex-direction: column;
+    max-width: 10em;
+    margin-right: 5em;
+    margin-bottom: 5em;
+}
+
+.project-image{
+    margin: auto;
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+}
+
+.project-title{
+    margin-top: 0;
+    margin-bottom: 0;
+    margin: auto;
+    font-size: 1.5em;
+    text-align: center;
+}
+
+.project-description{
+    margin-top: 0;
+    margin-bottom: 0;
+    margin: auto;
+    text-align: center;
 }
