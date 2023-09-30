@@ -44,7 +44,7 @@ a{
 
 a:hover{
     box-shadow: inset 500px 0 0 0 grey;
-    color: aqua;
+    color: rgb(15, 8, 47);
     size: 1em;
 }
 
@@ -61,6 +61,17 @@ a:hover{
 }
 
 .contact-info{
+    display: flex;
+    flex-direction: column;
+}
+
+.project-container{
+    display: flex;
+    flex-direction: row;
+    color: rgba(240, 248, 255, 0.668);
+}
+
+.project{
     display: flex;
     flex-direction: column;
 }
