@@ -39,7 +39,8 @@ a{
     text-decoration: none;
     font-weight: normal;
     color: aliceblue;
-    transition: color .2s ease-in-out, box-shadow .2s ease-in-out
+    transition: color .2s ease-in-out, box-shadow .2s ease-in-out;
+    text-transform: uppercase;
 }
 
 a:hover{
@@ -61,6 +62,7 @@ a:hover{
     position: relative;
     font-size: 4em;
     height: fit-content;
+    text-transform: uppercase;
 }
 
 .footer{
@@ -85,6 +87,7 @@ a:hover{
     max-width: 10em;
     margin-right: 5em;
     margin-bottom: 5em;
+    text-transform: uppercase;
 }
 
 .project-image{
@@ -95,8 +98,6 @@ a:hover{
 }
 
 .project-title{
-    margin-top: 0;
-    margin-bottom: 0;
     margin: auto;
     font-size: 1.5em;
     text-align: center;
