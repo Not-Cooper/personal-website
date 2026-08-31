@@ -43,7 +43,7 @@ a{
     text-transform: uppercase;
 }
 
-a:hover{
+.text-link:hover{
     box-shadow: inset 900px 0 0 0 grey;
     color: rgb(15, 8, 47);
     size: 1em;
@@ -53,8 +53,9 @@ a:hover{
 
 }
 
-.project a:hover{
-    box-shadow: inset 500px 0px 0px 0px rgb(214, 222, 222);
+.project-image:hover{
+    /* box-shadow: inset 500px 0px 0px 0px rgb(214, 222, 222); */
+    filter: drop-shadow(5px 5px 10px grey);
 }
 
 .zach-about{
