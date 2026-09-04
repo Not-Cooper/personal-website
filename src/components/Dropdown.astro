@@ -3,7 +3,7 @@ const { collapsableID, isOpen=false } = Astro.props;
 ---
 <div class="dropdown">
     <button class="dropdown-button" dropdown-toggle={collapsableID}>
-        <img class="dropdown-image" src="/triangle.png" data-open={isOpen}/>
+        <img id="dropdown-image" class="image-closed" src="/triangle.png" data-open={isOpen}/>
     </button>
     <div id={collapsableID} class="dropdown-content" data-open={isOpen}>
         <p>Something cool</p>
@@ -11,14 +11,23 @@ const { collapsableID, isOpen=false } = Astro.props;
 </div>
 
 <style>
-  .dropdown-image {
+  .dropdown {
+    border: 1px solid white;
+  }
+  .image-closed {
     width: 20px;
     transform: rotate(180deg);
+  }
+  .image-expanded {
+    width: 20px;
+    transform: rotate(225deg);
+    margin: 1rem .7rem 0rem;
+    padding: 0rem;
   }
   .dropdown-button {
     background-color: #000000;
     color: white;
-    padding: 12px 16px;
+    padding-left: 1.5rem;
     font-size: 16px;
     border: none;
     cursor: pointer;
@@ -28,20 +37,27 @@ const { collapsableID, isOpen=false } = Astro.props;
   }
   .dropdown-content {
     border: 1px solid white;
+    margin: .0rem 1rem .6rem;
   }
 </style>
 
 <script>
     document.querySelectorAll(".dropdown-button").forEach(button => {
-        button.addEventListener('click', () => {
-            const collapsableID = button.getAttribute("dropdown-toggle") ?? "";
-            const content = document.getElementById(collapsableID);
-            const image = button.querySelector('.dropdown-image') as HTMLImageElement | null;
-            if (content && image) {
-                const isExpanded = content.getAttribute('data-open') === 'true';
-                content.setAttribute('data-open', (!isExpanded).toString());
-                image.src = isExpanded ? '': 'triangle.png';
-            }
-        });
+        const collapsableID = button.getAttribute("dropdown-toggle") ?? "";
+        const content = document.getElementById(collapsableID);
+        const image = button.querySelector('#dropdown-image') as HTMLImageElement | null;
+        if (content && image) {
+            const isExpandedOnLoad = content.getAttribute('data-open') === 'true';
+            image.src = isExpandedOnLoad ? 'ourple_triangle.png': 'triangle.png';
+            image.className = isExpandedOnLoad ? 'image-expanded' : 'image-closed';
+            button.addEventListener('click', () => {
+                if (content && image) {
+                    const isExpanded = content.getAttribute('data-open') === 'true';
+                    image.src = isExpanded ? 'triangle.png': 'ourple_triangle.png';
+                    image.className = isExpanded ? 'image-closed' : 'image-expanded';
+                    content.setAttribute('data-open', (!isExpanded).toString());
+                }
+            });
+          }
     })
 </script>
