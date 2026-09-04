@@ -3,10 +3,10 @@ const { collapsableID, isOpen=false } = Astro.props;
 ---
 <div class="dropdown">
     <div class="dropdown-tab">
-      <button class="dropdown-button-closed" dropdown-toggle={collapsableID} data-role="dropdown-button">
+      <button class="dropdown-button" dropdown-toggle={collapsableID} data-role="dropdown-button">
           <img id="dropdown-image" class="image-closed" src="/triangle.png" data-open={isOpen}/>
+          <span class="button-text">Click Me</span>
       </button>
-      <p>Cool Text</p>
     </div>
     <div id={collapsableID} class="dropdown-content" data-open={isOpen}>
         <p>Something cool</p>
@@ -24,28 +24,30 @@ const { collapsableID, isOpen=false } = Astro.props;
   .image-closed {
     width: 20px;
     transform: rotate(180deg);
+    margin: .5rem 1rem .5rem .4rem;
   }
   .image-expanded {
     width: 20px;
     transform: rotate(225deg);
-    margin: 1rem .7rem 0rem;
+    margin: .8rem 1.7rem .2rem .8rem;
     padding: 0rem;
   }
-  .dropdown-button-closed {
-    background-color: #000000;
+  .dropdown-button {
+    display: flex;
+    align-items: center;
     color: white;
-    padding: .5rem 1rem .5rem 1rem;
-    font-size: 16px;
+    font-family: inherit;
+    flex: 1;
+    background: none;
+    font-size: 1.4rem;
     border: none;
     cursor: pointer;
   }
-  .dropdown-button-expanded {
-    background-color: #000000;
-    color: white;
-    padding: 0rem .5rem 0rem .4rem;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
+  .dropdown-button:active .button-text {
+    transform: translateY(1px);
+  }
+  .button-text {
+    text-align: center;
   }
   .dropdown-content[data-open="false"] {
     display: none;
@@ -65,13 +67,13 @@ const { collapsableID, isOpen=false } = Astro.props;
             const isExpandedOnLoad = content.getAttribute('data-open') === 'true';
             image.src = isExpandedOnLoad ? 'ourple_triangle.png': 'triangle.png';
             image.className = isExpandedOnLoad ? 'image-expanded' : 'image-closed';
-            button.className = isExpandedOnLoad ? 'dropdown-button-expanded' : 'dropdown-button-closed';
+            // button.className = isExpandedOnLoad ? 'dropdown-button-expanded' : 'dropdown-button-closed';
             button.addEventListener('click', () => {
                 if (content && image) {
                     const isExpanded = content.getAttribute('data-open') === 'true';
                     image.src = isExpanded ? 'triangle.png': 'ourple_triangle.png';
                     image.className = isExpanded ? 'image-closed' : 'image-expanded';
-                    button.className = isExpanded ? 'dropdown-button-closed' : 'dropdown-button-expanded';
+                    // button.className = isExpanded ? 'dropdown-button-closed' : 'dropdown-button-expanded';
                     content.setAttribute('data-open', (!isExpanded).toString());
                 }
             });
