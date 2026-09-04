@@ -1,0 +1,47 @@
+---
+const { collapsableID, isOpen=false } = Astro.props;
+---
+<div class="dropdown">
+    <button class="dropdown-button" dropdown-toggle={collapsableID}>
+        <img class="dropdown-image" src="/triangle.png" data-open={isOpen}/>
+    </button>
+    <div id={collapsableID} class="dropdown-content" data-open={isOpen}>
+        <p>Something cool</p>
+    </div>
+</div>
+
+<style>
+  .dropdown-image {
+    width: 20px;
+    transform: rotate(180deg);
+  }
+  .dropdown-button {
+    background-color: #000000;
+    color: white;
+    padding: 12px 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+  }
+  .dropdown-content[data-open="false"] {
+    display: none;
+  }
+  .dropdown-content {
+    border: 1px solid white;
+  }
+</style>
+
+<script>
+    document.querySelectorAll(".dropdown-button").forEach(button => {
+        button.addEventListener('click', () => {
+            const collapsableID = button.getAttribute("dropdown-toggle") ?? "";
+            const content = document.getElementById(collapsableID);
+            const image = button.querySelector('.dropdown-image') as HTMLImageElement | null;
+            if (content && image) {
+                const isExpanded = content.getAttribute('data-open') === 'true';
+                content.setAttribute('data-open', (!isExpanded).toString());
+                image.src = isExpanded ? '': 'triangle.png';
+            }
+        });
+    })
+</script>

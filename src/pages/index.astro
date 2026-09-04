@@ -1,0 +1,13 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Dropdown from '../components/Dropdown.astro';
+
+const pageTitle = "Home Page";
+---
+<BaseLayout pageTitle={pageTitle}>
+  <div class="dropdowns-container">
+      <Dropdown collapsableID="1" isOpen="true"></Dropdown>
+      <Dropdown collapsableID="2"></Dropdown>
+  </div>
+  <h2>My awesome blog subtitle</h2>
+</BaseLayout>
