@@ -6,7 +6,21 @@ const pageTitle = "Home Page";
 ---
 <BaseLayout pageTitle={pageTitle}>
   <div class="dropdowns-container">
-      <Dropdown collapsableID="1" isOpen="true"></Dropdown>
-      <Dropdown collapsableID="2"></Dropdown>
+      <Dropdown collapsableID="1" isOpen="true" dropdownName="About Zach">
+        <div class="about-zach">
+          <h1>I Am Zach :)</h1>
+        </div>
+      </Dropdown>
+      <Dropdown collapsableID="2" dropdownName="Another Section"></Dropdown>
+      <Dropdown collapsableID="3" dropdownName="Another Section"></Dropdown>
+      <Dropdown collapsableID="4" dropdownName="Another Section"></Dropdown>
   </div>
 </BaseLayout>
+
+<style>
+.about-zach {
+  margin: 1rem;
+}
+</style>
+
+<!-- TODO script to give ID programatically -->

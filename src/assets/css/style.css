@@ -16,12 +16,14 @@ html {
 }
 
 body {
+  display: flex;
+  flex-direction: column;
   font-family: 'retro', sans-serif;
   color: #f4ff54;
   border: 2px solid white;
   margin: 0 auto;
   width: 100%;
-  /* max-width: 80ch; */
+  height: 100dvh;
   padding: .2rem .2rem 0rem;
   line-height: 1.5;
 }
@@ -29,7 +31,13 @@ body {
 .content-container {
   border: 2px solid white;
   margin: .1rem 0rem;
+  flex: 1;
+  min-height: 0;
+  overflow-y: scroll;
 }
+/* .content-container::-webkit-scrollbar {
+  width: 100px;
+} */
 
 * {
   box-sizing: border-box;

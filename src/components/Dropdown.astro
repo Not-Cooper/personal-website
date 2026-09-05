@@ -1,15 +1,15 @@
 ---
-const { collapsableID, isOpen=false } = Astro.props;
+const { collapsableID, isOpen=false, dropdownName="click me" } = Astro.props;
 ---
 <div class="dropdown">
     <div class="dropdown-tab">
       <button class="dropdown-button" dropdown-toggle={collapsableID} data-role="dropdown-button">
           <img id="dropdown-image" class="image-closed" src="/triangle.png" data-open={isOpen}/>
-          <span class="button-text">Click Me</span>
+          <span class="button-text">{dropdownName}</span>
       </button>
     </div>
     <div id={collapsableID} class="dropdown-content" data-open={isOpen}>
-        <p>Something cool</p>
+        <slot></slot>
     </div>
 </div>
 
