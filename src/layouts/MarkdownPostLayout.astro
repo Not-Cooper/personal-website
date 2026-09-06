@@ -2,17 +2,24 @@
 import BaseLayout from "./BaseLayout.astro";
 const { frontmatter } = Astro.props;
 ---
-<BaseLayout pageTitle={frontmatter.title}>
-    <p>Published on {frontmatter.pubDate.toString().slice(0,10)}</p>
-    <p>Written by {frontmatter.author}</p>
 
-    <div class="tags">
-        {frontmatter.tags.map((tag: string) => (
-            <p class="tag"><a href={`/tags/${tag}`}>{tag}</a></p>
-        ))}
-    </div>
-    <slot />
-</BaseLayout>
+<head>
+  <meta charset="utf-8" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" href="/favicon.ico" />
+  <meta name="viewport" content="width=device-width" />
+  <meta name="generator" content={Astro.generator} />
+</head>
+
+  <p>Published on {frontmatter.pubDate.toString().slice(0,10)}</p>
+  <p>Written by {frontmatter.author}</p>
+
+  <div class="tags">
+      {frontmatter.tags.map((tag: string) => (
+          <p class="tag"><a href={`/tags/${tag}`}>{tag}</a></p>
+      ))}
+  </div>
+  <slot />
 
 <style>
   a {

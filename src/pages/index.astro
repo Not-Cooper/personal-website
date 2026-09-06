@@ -5,7 +5,8 @@ import Dropdown from '../components/Dropdown.astro';
 const pageTitle = "Home Page";
 ---
 <BaseLayout pageTitle={pageTitle}>
-  <div class="dropdowns-container">
+  <div class="content-container">
+    <div class="dropdowns-container">
       <Dropdown collapsableID="1" isOpen="true" dropdownName="About Zach">
         <div class="about-zach">
           <h1>I Am Zach :)</h1>
@@ -14,6 +15,7 @@ const pageTitle = "Home Page";
       <Dropdown collapsableID="2" dropdownName="Another Section"></Dropdown>
       <Dropdown collapsableID="3" dropdownName="Another Section"></Dropdown>
       <Dropdown collapsableID="4" dropdownName="Another Section"></Dropdown>
+    </div>
   </div>
 </BaseLayout>
 
@@ -22,5 +24,3 @@ const pageTitle = "Home Page";
   margin: 1rem;
 }
 </style>
-
-<!-- TODO script to give ID programatically -->

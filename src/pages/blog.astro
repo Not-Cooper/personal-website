@@ -1,18 +1,47 @@
 ---
-import BlogPost from '../components/BlogPost.astro';
+import BlogCard from '../components/BlogCard.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import PostsHolder from '../components/PostCollection.astro';
+import { getCollection } from 'astro:content';
 import '../assets/css/style.css';
 
-const allPosts = Object.values(import.meta.glob('./posts/*.md', { eager: true }));
+const allBlogPosts = await getCollection('blog');
+
+// const renderedPosts: RenderResult[] = [];
+
+// for (const post of allBlogPosts) {
+//     const Content = await render(post)
+//     renderedPosts.push(Content)
+// }
+
+// console.log(renderedPosts);
+
 const pageTitle = "Blog";
 ---
 
 <BaseLayout pageTitle={pageTitle}>
-    <body>
-        <h1>My Astro Learning Blog</h1>
-        <p>This is where I will post about my journey learning Astro.</p>
-        <ul>
-            {allPosts.map((post: any) => <BlogPost url={post.url} title={post.frontmatter.title} />)}
-        </ul>
-    </body>
+    <div class="emails-container">
+        <div class="content-container">
+            <ul>
+                {allBlogPosts.map((post: any) => <BlogCard url={""} title={"thing"} />)}
+            </ul>
+        </div>
+        <div class="content-container">
+            <PostsHolder index={0} posts={allBlogPosts} />
+        </div>
+    </div>
 </BaseLayout>
+
+<style>
+    .emails-container {
+        display: flex;
+        flex: 1;
+        gap: .5rem;
+        margin: .2rem .5rem;
+        min-height: 0;
+    }
+</style>
+
+<script>
+
+</script>
