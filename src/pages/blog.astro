@@ -1,16 +1,17 @@
 ---
-import BlogCard from '../components/BlogCard.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import PostsHolder from '../components/PostCollection.astro';
-import { getCollection } from 'astro:content';
+import PostsHolder from '../components/PostsHolder.astro';
+import type { RenderResult } from 'astro:content';
+import { getCollection, render, getEntry } from 'astro:content';
 import '../assets/css/style.css';
+import type { AstroComponentFactory } from 'astro/runtime/server/index.js';
 
 const allBlogPosts = await getCollection('blog');
 
-// const renderedPosts: RenderResult[] = [];
+// const renderedPosts: AstroComponentFactory[] = [];
 
 // for (const post of allBlogPosts) {
-//     const Content = await render(post)
+//     const { Content } = await render(post)
 //     renderedPosts.push(Content)
 // }
 
@@ -22,12 +23,20 @@ const pageTitle = "Blog";
 <BaseLayout pageTitle={pageTitle}>
     <div class="emails-container">
         <div class="content-container">
-            <ul>
-                {allBlogPosts.map((post: any) => <BlogCard url={""} title={"thing"} />)}
-            </ul>
+            <div class="cards-holder">
+                {allBlogPosts.map((post: any, index: number) => 
+                    <button id={index.toString()} class="blog-card">
+                        {"Author"} {"Description"} {"Date"}
+                    </button>
+                )}
+            </div>
         </div>
         <div class="content-container">
-            <PostsHolder index={0} posts={allBlogPosts} />
+            {allBlogPosts.map((post: any, index: number) => 
+                <div id={index.toString()} class={`content-panel ${index === 0 ? 'active' : ''}`}>
+                    <PostsHolder index={index} posts={allBlogPosts} />
+                </div>
+            )}
         </div>
     </div>
 </BaseLayout>
@@ -40,8 +49,40 @@ const pageTitle = "Blog";
         margin: .2rem .5rem;
         min-height: 0;
     }
+    .cards-holder {
+        display: flex;
+        flex-direction: column;
+    }
+    .blog-card {
+
+    }
+    .content-panel {
+        display: none;
+    }
+    .content-panel.active {
+        display: block;
+    }
 </style>
 
 <script>
+    const buttons = document.querySelectorAll('.blog-card');
+    const panels = document.querySelectorAll('.content-panel');
 
+    buttons.forEach(button => {
+        button.addEventListener('click', () => {
+            const targetId = button.getAttribute('data-target');
+
+            // 1. Remove active class from all buttons and panels
+            buttons.forEach(btn => btn.classList.remove('active'));
+            panels.forEach(panel => panel.classList.remove('active'));
+
+            // 2. Add active class to clicked button and matching panel
+            button.classList.add('active');
+
+            if (targetId) {
+                const targetPanel = document.getElementById(targetId);
+                if (targetPanel) targetPanel.classList.add('active');
+            }
+        });
+    });
 </script>
