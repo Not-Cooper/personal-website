@@ -25,7 +25,7 @@ const pageTitle = "Blog";
         <div class="content-container">
             <div class="cards-holder">
                 {allBlogPosts.map((post: any, index: number) => 
-                    <button id={index.toString()} class="blog-card">
+                    <button class="blog-card" blog-index={index.toString()}>
                         {"Author"} {"Description"} {"Date"}
                     </button>
                 )}
@@ -70,14 +70,11 @@ const pageTitle = "Blog";
 
     buttons.forEach(button => {
         button.addEventListener('click', () => {
-            const targetId = button.getAttribute('data-target');
+            const targetId = button.getAttribute('blog-index');
 
-            // 1. Remove active class from all buttons and panels
-            buttons.forEach(btn => btn.classList.remove('active'));
+            console.log(targetId)
+
             panels.forEach(panel => panel.classList.remove('active'));
-
-            // 2. Add active class to clicked button and matching panel
-            button.classList.add('active');
 
             if (targetId) {
                 const targetPanel = document.getElementById(targetId);
