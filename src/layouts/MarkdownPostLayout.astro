@@ -1,6 +1,5 @@
 ---
-import BaseLayout from "./BaseLayout.astro";
-const { frontmatter } = Astro.props;
+const { frontmatter, postID } = Astro.props;
 ---
 
 <head>
@@ -11,32 +10,62 @@ const { frontmatter } = Astro.props;
   <meta name="generator" content={Astro.generator} />
 </head>
 
-  <p>Published on {frontmatter.pubDate.toString().slice(0,10)}</p>
-  <p>Written by {frontmatter.author}</p>
-
-  <div class="tags">
-      {frontmatter.tags.map((tag: string) => (
-          <p class="tag"><a href={`/tags/${tag}`}>{tag}</a></p>
-      ))}
+<html lang="en">
+  <div class="blog-post">
+    <div class="head">
+        <a href={`/posts/${postID}`} class="title">{frontmatter.title}</a>
+        <span class="date">{frontmatter.pubDate.toString().slice(0,10)}</span>
+    </div>
+    <div class="info">
+        <span class="description">{frontmatter.description}</span>
+    </div>
+    <div class="post-content">
+      <slot />
+    </div>
   </div>
-  <slot />
+</html>
 
 <style>
-  a {
-    color: #00539F;
+  html {
+    background-color: #030303;
   }
-
-  .tags {
+  .blog-post {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
+    font-family: inherit;
+    color: #f4ff54;
   }
-
-  .tag {
-    margin: 0.25em;
-    border: dotted 1px #a1a1a1;
-    border-radius: .5em;
-    padding: .5em 1em;
-    font-size: 1.15em;
-    background-color: #F8FCFD;
+  .head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.4rem;
+    border-bottom: 2px solid white;
+  }
+  .title {
+    margin: .5rem;
+    text-decoration: none;
+    color: inherit;
+  }
+  .title:active {
+    transform: translateY(1px);
+  }
+  .date {
+    color: rgb(0, 207, 207);
+    margin: .5rem;
+  }
+  .info {
+    border-bottom: 2px solid white;
+    margin-top: .5rem;
+    font-size: 1.4rem;
+    color: rgb(4, 214, 39);
+  }
+  .description {
+    margin-left: .5rem;
+  }
+  .post-content {
+    font-size: 1.2rem;
+    color: white;
+    margin: 0 .5rem;
   }
 </style>

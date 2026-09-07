@@ -1,21 +1,10 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import PostsHolder from '../components/PostsHolder.astro';
-import type { RenderResult } from 'astro:content';
-import { getCollection, render, getEntry } from 'astro:content';
+import BlogPost from '../components/BlogPost.astro';
+import { getCollection } from 'astro:content';
 import '../assets/css/style.css';
-import type { AstroComponentFactory } from 'astro/runtime/server/index.js';
 
 const allBlogPosts = await getCollection('blog');
-
-// const renderedPosts: AstroComponentFactory[] = [];
-
-// for (const post of allBlogPosts) {
-//     const { Content } = await render(post)
-//     renderedPosts.push(Content)
-// }
-
-// console.log(renderedPosts);
 
 const pageTitle = "Blog";
 ---
@@ -23,10 +12,20 @@ const pageTitle = "Blog";
 <BaseLayout pageTitle={pageTitle}>
     <div class="emails-container">
         <div class="content-container">
+            <div class="blog-nav">
+                <a href="/">All</a>
+                <span></span>
+            </div>
             <div class="cards-holder">
                 {allBlogPosts.map((post: any, index: number) => 
                     <button class="blog-card" blog-index={index.toString()}>
-                        {"Author"} {"Description"} {"Date"}
+                        <div class="title">
+                            <span>{post.data.title.replaceAll(' ', '_')}</span>
+                        </div>
+                        <div class="info">
+                            <span class="description">{post.data.description}</span>
+                            <span class="date">{post.data.pubDate.toString().slice(0,10)}</span>
+                        </div>
                     </button>
                 )}
             </div>
@@ -34,7 +33,7 @@ const pageTitle = "Blog";
         <div class="content-container">
             {allBlogPosts.map((post: any, index: number) => 
                 <div id={index.toString()} class={`content-panel ${index === 0 ? 'active' : ''}`}>
-                    <PostsHolder index={index} posts={allBlogPosts} />
+                    <BlogPost post={post} />
                 </div>
             )}
         </div>
@@ -42,6 +41,22 @@ const pageTitle = "Blog";
 </BaseLayout>
 
 <style>
+    .blog-nav {
+        display: flex;
+        border-bottom: 2px solid gray;
+    }
+    .blog-nav a{
+        flex: 1;
+        border-right: 2px solid gray;
+        text-align: center;
+        text-decoration: none;
+        font-size: 2.5rem;
+        font-weight: normal;
+        color: white;
+    }
+    .blog-nav span{
+        flex: 2.5;
+    }
     .emails-container {
         display: flex;
         flex: 1;
@@ -54,7 +69,41 @@ const pageTitle = "Blog";
         flex-direction: column;
     }
     .blog-card {
-
+        display: flex;
+        font-family: inherit;
+        background: none;
+        border-top: none;
+        border-bottom: 2px solid gray;
+        padding: .2rem;
+        justify-content: left;
+        width: 100%;
+    }
+    .blog-card:active {
+        transform: translateY(1px);
+    }
+    .title {
+        display: flex;
+        flex: 1;
+        align-items: center;
+        box-sizing: border-box;
+        font-size: 1.4rem;
+        color: rgb(8, 185, 37);
+        width: 20rem;
+        border-right: 2px solid gray;
+    }
+    .info {
+        display: flex;
+        flex: 2.5;
+        margin: 0rem .2rem;
+        align-items: left;
+        font-size: 1.4rem;
+        justify-content: space-between;
+    }
+    .description {
+        color: rgba(129, 129, 129, 0.555);
+    }
+    .date {
+        color: rgb(0, 207, 207);
     }
     .content-panel {
         display: none;
@@ -71,8 +120,6 @@ const pageTitle = "Blog";
     buttons.forEach(button => {
         button.addEventListener('click', () => {
             const targetId = button.getAttribute('blog-index');
-
-            console.log(targetId)
 
             panels.forEach(panel => panel.classList.remove('active'));
 
