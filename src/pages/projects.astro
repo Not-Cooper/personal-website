@@ -1,0 +1,83 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Project from '../components/Project.astro';
+import { getCollection } from 'astro:content';
+
+const allProjects = await getCollection('project');
+
+const pageTitle = "Projects";
+---
+
+<BaseLayout pageTitle={pageTitle}>
+    <div class="projects-container">
+        <div class="content-container">
+            <div class="project-nav">
+                {allProjects.map((project: any, index: number) => 
+                    <button class="project-card" blog-index={index.toString()}>
+                        <div class="title">
+                            <span>{project.data.title.replaceAll(' ', '_')}</span>
+                        </div>
+                    </button>
+                )}
+            </div>
+        </div>
+        <div class="project-tiles">
+            {allProjects.map((project: any, index: number) => 
+                <div id={index.toString()} class='content-panel'>
+                    <Project project={project}/>
+                </div>
+            )}
+        </div>
+    </div>  
+</BaseLayout>
+
+<style>
+.projects-container {
+    display: flex;
+    flex: 1;
+    gap: .5rem;
+    margin: .2rem .5rem;
+    min-height: 0;
+}
+.project-tiles {
+    display: flex;
+    margin: .1rem 0rem;
+    flex: 1;
+    min-height: 0;
+    overflow-y: scroll;
+}
+.content-panel {
+    display: flex;
+    flex: 1;
+}
+/* .content-panel.active {
+    display: block;
+} */
+.project-nav {
+    display: flex;
+    flex-direction: column;
+}
+.project-card {
+    display: flex;
+    font-family: inherit;
+    background: none;
+    border-top: none;
+    border-bottom: 2px solid gray;
+    padding: .2rem;
+    justify-content: left;
+    width: 100%;
+}
+.project-card:active {
+    transform: translateY(1px);
+}
+.title {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    box-sizing: border-box;
+    font-size: 1.4rem;
+    color: rgb(8, 185, 37);
+    width: 20rem;
+    border-right: 2px solid gray;
+}
+</style>

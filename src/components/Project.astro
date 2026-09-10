@@ -1,0 +1,67 @@
+---
+import { render} from 'astro:content';
+
+const { project } = Astro.props;
+
+console.log(project)
+
+const { Content } = await render(project)
+---
+
+<div class="project-container">
+    <div class="project-info">
+        <div class="logo-holder">
+
+        </div>
+        <div class="info-holder">
+
+        </div>
+    </div>
+    <div class="project-media">
+        <div class="demo-holder">
+
+        </div>
+        <div class="link-holder">
+
+        </div>
+    </div>
+</div>
+
+<style>
+.project-container {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 1rem;
+}
+.project-info {
+    display: flex;
+    flex: 1;
+    border: 2px solid white;
+    margin: 1rem;
+    margin-bottom: 0rem;
+}
+.logo-holder {
+    flex: 1;
+    border-right: 2px solid white;
+}
+.info-holder {
+    flex: 1;
+    border-left: 2px solid white;
+}
+.project-media {
+    display: flex;
+    flex: 1;
+    border: 2px solid white;
+    margin: 1rem;
+    margin-top: 0rem;
+}
+.demo-holder {
+    flex: 1;
+    border-right: 2px solid white;
+}
+.link-holder {
+    flex: 1;
+    border-left: 2px solid white;
+}
+</style>

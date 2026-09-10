@@ -29,6 +29,8 @@ body {
 }
 
 .content-container {
+  display: flex;
+  flex-direction: column;
   border: 2px solid white;
   margin: .1rem 0rem;
   flex: 1;

@@ -9,7 +9,7 @@ import { z } from 'astro/zod';
 
 // 4. Define a `loader` and `schema` for each collection
 const blog = defineCollection({
-  loader: glob({ base: './src/blog', pattern: '**/*.{md,mdx}' }),
+  loader: glob({ base: './src/collections/blog', pattern: '**/*.{md,mdx}' }),
   schema: z.object({
     title: z.string(),
     description: z.string(),
@@ -18,5 +18,20 @@ const blog = defineCollection({
   }),
 });
 
+const project = defineCollection({
+  loader: glob({ base: './src/collections/projects', pattern: '**/*.{md,mdx}' }),
+  schema: z.object({
+    title: z.string(),
+    projectType: z.string(),
+    techStack: z.string(),
+    associatedBlog: z.string(),
+    githubLink: z.string(),
+    projectLink: z.string(),
+    projectIcon: z.string(),
+    demoImage: z.string(),
+    description: z.string(),
+  }),
+})
+
 // 5. Export a single `collections` object to register your collection(s)
-export const collections = { blog };
+export const collections = { blog, project };
