@@ -19,7 +19,7 @@ body {
   display: flex;
   flex-direction: column;
   font-family: 'retro', sans-serif;
-  color: #f4ff54;
+  color: var(--yellow);
   border: 2px solid white;
   margin: 0 auto;
   width: 100%;
