@@ -1,9 +1,14 @@
 ---
 import { render} from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  project: CollectionEntry<'project'>;
+}
 
 const { project } = Astro.props;
 
-console.log(project)
+const projectData = project.data;
 
 const { Content } = await render(project)
 ---
@@ -11,18 +16,37 @@ const { Content } = await render(project)
 <div class="project-container">
     <div class="project-info">
         <div class="logo-holder">
-
+            <img class="logo-image" src={projectData.projectIcon} alt="No Image"/>
         </div>
         <div class="info-holder">
-
+            {projectData.title && 
+                <span class="info">{projectData.title}</span>
+            }
+            {projectData.projectType && 
+                <span class="info">{projectData.projectType}</span>
+            }
+            {projectData.associatedBlog && 
+                <span class="info">{projectData.associatedBlog}</span>
+            }
+            {projectData.techStack && 
+                <span class="info">{projectData.techStack}</span>
+            }
+            <div class="description-holder">
+                <span class="description">{projectData.description}</span>
+            </div>
         </div>
     </div>
     <div class="project-media">
         <div class="demo-holder">
-
+            <img class="demo-media" src={projectData.demoImage} alt="No Image"/>
         </div>
         <div class="link-holder">
-
+            {projectData.githubLink && 
+                <a href={projectData.githubLink} class="info" target="_blank">GITHUB</a>
+            }
+            {projectData.projectLink && 
+                <a href={projectData.projectLink} class="info" target="_blank">PROJECT</a>
+            }
         </div>
     </div>
 </div>
@@ -43,10 +67,21 @@ const { Content } = await render(project)
 }
 .logo-holder {
     flex: 1;
+    display: flex;
     border-right: 2px solid white;
+    justify-content: center;
+    align-items: center;
+}
+.logo-image {
+    display: block;
+    width: 80%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
 }
 .info-holder {
     flex: 1;
+    display: flex;
+    flex-direction: column;
     border-left: 2px solid white;
 }
 .project-media {
@@ -58,7 +93,17 @@ const { Content } = await render(project)
 }
 .demo-holder {
     flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border-right: 2px solid white;
+}
+.demo-media {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    object-position: top left;
 }
 .link-holder {
     flex: 1;

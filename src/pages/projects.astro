@@ -22,7 +22,7 @@ const pageTitle = "Projects";
             </div>
         </div>
         <div class="project-tiles">
-            {allProjects.map((project: any, index: number) => 
+            {allProjects.map((project, index: number) => 
                 <div id={index.toString()} class='content-panel'>
                     <Project project={project}/>
                 </div>
