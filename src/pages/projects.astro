@@ -1,0 +1,116 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Project from '../components/Project.astro';
+import { getCollection } from 'astro:content';
+
+const allProjects = await getCollection('project');
+
+const pageTitle = "Projects";
+---
+
+<BaseLayout pageTitle={pageTitle}>
+    <div class="projects-container">
+        <div class="content-container">
+            <div class="project-nav">
+                {allProjects.map((project: any, index: number) => 
+                    <button class="project-card" project-index={index.toString()}>
+                        <div class="title">
+                            <span>{project.data.title.replaceAll(' ', '_')}</span>
+                        </div>
+                        <div class="description">
+                            <span>{project.data.description.replaceAll(' ', '_')}</span>
+                        </div>
+                    </button>
+                )}
+            </div>
+        </div>
+        <div class="project-tiles">
+            {allProjects.map((project, index: number) => 
+                <div id={index.toString()} class={`content-panel ${index === 0 ? 'active' : ''}`}>
+                    <Project project={project}/>
+                </div>
+            )}
+        </div>
+    </div>  
+</BaseLayout>
+
+<style>
+.projects-container {
+    display: flex;
+    flex: 1;
+    gap: .5rem;
+    margin: .2rem .5rem;
+    min-height: 0;
+}
+.project-tiles {
+    display: flex;
+    margin: .1rem 0rem;
+    flex: 1;
+    min-height: 0;
+    overflow-y: scroll;
+}
+.content-panel {
+    display: none;
+}
+.content-panel.active {
+    display: block;
+    display: flex;
+    flex: 1;
+}
+.project-nav {
+    display: flex;
+    margin: .4rem;
+    flex-direction: column;
+}
+.project-card {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: .3rem;
+    font-family: inherit;
+    background: none;
+    border-top: none;
+    border: 2px solid rgb(28, 230, 21);
+    padding: .2rem;
+    justify-content: left;
+    width: 100%;
+}
+.project-card:active {
+    transform: translateY(1px);
+}
+.project-card:focus {
+    outline: 2px solid rgb(60, 157, 196);
+    outline-offset: 2px;  
+}
+.title {
+    display: flex;
+    flex: 1;
+    font-size: 2rem;
+    color: var(--yellow);
+    border-bottom: 2px solid rgb(28, 230, 21);
+}
+.description {
+    display: flex;
+    flex: 1;
+    font-size: 2rem;
+    color: white;
+}
+</style>
+
+
+<script>
+    const buttons = document.querySelectorAll('.project-card');
+    const panels = document.querySelectorAll('.content-panel');
+
+    buttons.forEach(button => {
+        button.addEventListener('click', () => {
+            const targetId = button.getAttribute('project-index');
+
+            panels.forEach(panel => panel.classList.remove('active'));
+
+            if (targetId) {
+                const targetPanel = document.getElementById(targetId);
+                if (targetPanel) targetPanel.classList.add('active');
+            }
+        });
+    });
+</script>

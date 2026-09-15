@@ -1,0 +1,29 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Dropdown from '../components/Dropdown.astro';
+
+const pageTitle = "Home Page";
+---
+<BaseLayout pageTitle={pageTitle}>
+  <div class="content-container">
+    <div class="dropdowns-container">
+      <Dropdown collapsableID="1" isOpen="true" dropdownName="About Zach">
+        <div class="about-zach">
+          <h1>I Am Zach :)</h1>
+        </div>
+      </Dropdown>
+      <Dropdown collapsableID="2" dropdownName="Another Section"></Dropdown>
+      <Dropdown collapsableID="3" dropdownName="Another Section"></Dropdown>
+      <Dropdown collapsableID="4" dropdownName="Another Section"></Dropdown>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+.about-zach {
+  margin: 1rem;
+}
+.dropdowns-container {
+  width: 100%;
+}
+</style>
