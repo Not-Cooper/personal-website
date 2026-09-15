@@ -20,19 +20,32 @@ const { Content } = await render(project)
         </div>
         <div class="info-holder">
             {projectData.title && 
-                <span class="info">{projectData.title}</span>
+                <div class="info-block">
+                    <span class="info">Title:</span>
+                    <span class="info">{projectData.title}</span>
+                </div>
             }
             {projectData.projectType && 
-                <span class="info">{projectData.projectType}</span>
+                <div class="info-block">
+                    <span class="info">Type:</span>
+                    <span class="info">{projectData.projectType}</span>
+                </div>
             }
             {projectData.associatedBlog && 
-                <span class="info">{projectData.associatedBlog}</span>
+                <div class="info-block">
+                    <span class="info">Blog Post:</span>
+                    <span class="info">{projectData.associatedBlog}</span>
+                </div>
             }
             {projectData.techStack && 
-                <span class="info">{projectData.techStack}</span>
+                <div class="info-block">
+                    <span class="info">Tech Stack:</span>
+                    <span class="info">{projectData.techStack}</span>
+                </div>
             }
             <div class="description-holder">
-                <span class="description">{projectData.description}</span>
+                <!-- <span class="description">{projectData.description}</span> -->
+                <Content/>
             </div>
         </div>
     </div>
@@ -42,10 +55,10 @@ const { Content } = await render(project)
         </div>
         <div class="link-holder">
             {projectData.githubLink && 
-                <a href={projectData.githubLink} class="info" target="_blank">GITHUB</a>
+                <a href={projectData.githubLink} class="github" target="_blank">GITHUB</a>
             }
             {projectData.projectLink && 
-                <a href={projectData.projectLink} class="info" target="_blank">PROJECT</a>
+                <a href={projectData.projectLink} class="project" target="_blank">PROJECT</a>
             }
         </div>
     </div>
@@ -60,7 +73,7 @@ const { Content } = await render(project)
 }
 .project-info {
     display: flex;
-    flex: 1;
+    flex: .5;
     border: 2px solid white;
     margin: 1rem;
     margin-bottom: 0rem;
@@ -80,13 +93,36 @@ const { Content } = await render(project)
 }
 .info-holder {
     flex: 1;
+    padding: .5rem;
     display: flex;
+    font-size: 1.5rem;
     flex-direction: column;
+    color: white;
     border-left: 2px solid white;
+}
+.info-block {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    line-height: 1.2;
+    border-bottom: 4px solid white;
+}
+.description-holder {
+    display: flex;
+    flex: 1;
+    max-height: 353px;
+    flex-direction: column;
+    color: var(--yellow);
+    font-size: 1rem;
+    border: 4px solid white;
+    margin-top: .5rem;
+    padding: .3rem;
+    min-height: 0;
+    overflow-y: scroll;
 }
 .project-media {
     display: flex;
-    flex: 1;
+    flex: .5;
     border: 2px solid white;
     margin: 1rem;
     margin-top: 0rem;
@@ -106,7 +142,21 @@ const { Content } = await render(project)
     object-position: top left;
 }
 .link-holder {
+    display: flex;
     flex: 1;
+    flex-direction: column;
     border-left: 2px solid white;
+    padding: .5rem;
+}
+.link-holder a{
+    font-size: 1.5rem;
+    padding: 0rem;
+    text-decoration: none;
+}
+.github {
+    color: rgb(28, 230, 21);
+}
+.project {
+    color: var(--yellow);
 }
 </style>
