@@ -25,8 +25,8 @@ const pageTitle = "Media";
                 {imagePaths.map((src: any) => 
                     <div class="thumb-wrapper">
                         <img class="thumb" 
-                            src={`/personal-website${src}`} 
-                            data-large={`/personal-website${src}`}
+                            src={src} 
+                            data-large={src}
                             data-caption={src.split('/').pop()}
                             alt={src.split('/').pop()}/>
                     </div>

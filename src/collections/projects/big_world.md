@@ -5,8 +5,8 @@ techStack: 'Godot'
 associatedBlog: ''
 githubLink: 'https://github.com/Not-Cooper/Big-World'
 projectLink: 'https://not-cooper.itch.io/big-world'
-projectIcon: '/personal-website/src/assets/media/big_world.png'
-demoImage: '/personal-website/src/assets/media/big_world_demo.png'
+projectIcon: '/src/assets/media/big_world.png'
+demoImage: '/src/assets/media/big_world_demo.png'
 description: 'Game jam game'
 ---
 
