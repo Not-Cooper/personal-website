@@ -1,12 +1,14 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { Image } from 'astro:assets';
+import notavailable from '../assets/media/not-available.png';
 
-// 1. Match all images in the folder
-const images = import.meta.glob('/src/assets/media/*.{jpeg,jpg,png,gif,webp}');
+const imageFiles = import.meta.glob('/src/assets/media/*.{jpeg,jpg,png,gif,webp}');
 
-// 2. Extract the resolve functions into an array (optional, depending on use case)
-const imagePaths = Object.keys(images);
+const images = await Promise.all(
+    Object.values(imageFiles).map((image) => image())
+)
+
 
 const pageTitle = "Media";
 ---
@@ -14,21 +16,18 @@ const pageTitle = "Media";
     <div class="media-container">
         <div class="content-container">
             <div class="viewer-panel">
-                <div id="viewer-placeholder">
-                    <img src="/personal-website/not-available.png" alt="No Image"/>
-                </div>
-                <img id="large-viewer" src="" alt="Selected Astro Scene" style="display: none;"/>
+                <img id="large-viewer" src={notavailable.src} alt="Selected Astro Scene"/>
             </div>
         </div>
         <div class="content-container">
             <div class="thumbnail-grid">
-                {imagePaths.map((src: any) => 
+                {images.map((img: any) => 
                     <div class="thumb-wrapper">
-                        <img class="thumb" 
-                            src={src} 
-                            data-large={src}
-                            data-caption={src.split('/').pop()}
-                            alt={src.split('/').pop()}/>
+                        <Image class="thumb" 
+                            src={img.default} 
+                            data-large={img.default.src}
+                            data-caption={'image'}
+                            alt={'image'}/> 
                     </div>
                 )}
             </div>
@@ -52,9 +51,9 @@ const pageTitle = "Media";
     justify-content: center;
 }
 #large-viewer {
-    max-height: 1000px;
+    height: 800px;
     width: auto;
-    aspect-ratio: 1/1;
+    /* aspect-ratio: 1/1; */
 }
 
 .thumbnail-grid {
@@ -76,7 +75,7 @@ const pageTitle = "Media";
 .thumb {
     display: block;
     width: 20rem;
-    aspect-ratio: 1/1;
+    height: 20rem;
     object-fit: cover;
 }
 </style>
@@ -85,14 +84,12 @@ const pageTitle = "Media";
     document.addEventListener("DOMContentLoaded", () => {
         const thumbnails = document.querySelectorAll(".thumb");
         const largeViewer = document.getElementById("large-viewer") as HTMLImageElement;
-        const viewerPlaceholder = document.getElementById("viewer-placeholder");
 
         thumbnails.forEach(thumb => {
             thumb.addEventListener("click", () => {
                 const largeImgUrl = thumb.getAttribute("data-large") ?? "";
 
-                if (thumbnails && largeViewer && viewerPlaceholder) {
-                    viewerPlaceholder.style.display = "none";
+                if (thumbnails && largeViewer) {
                     largeViewer.src = largeImgUrl;
                     largeViewer.style.display = "block";
                 }
