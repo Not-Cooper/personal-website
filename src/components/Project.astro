@@ -78,6 +78,7 @@ const { Content } = await render(project)
     border: 2px solid white;
     margin: 1rem;
     margin-bottom: 0rem;
+    min-height: 0;
 }
 .logo-holder {
     flex: 1;
@@ -109,10 +110,7 @@ const { Content } = await render(project)
     border-bottom: 4px solid white;
 }
 .description-holder {
-    display: flex;
     flex: 1;
-    max-height: 353px;
-    flex-direction: column;
     color: var(--yellow);
     font-size: 1rem;
     border: 4px solid white;
