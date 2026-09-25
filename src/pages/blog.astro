@@ -6,6 +6,8 @@ import '../assets/css/style.css';
 
 const allBlogPosts = await getCollection('blog');
 
+allBlogPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+
 const pageTitle = "Blog";
 ---
 

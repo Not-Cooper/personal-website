@@ -9,6 +9,20 @@ const images = await Promise.all(
     Object.values(imageFiles).map((image) => image())
 )
 
+const pictureFiles = import.meta.glob('/src/assets/media/images/*.{jpeg,jpg,png,gif,webp}');
+
+console.log(pictureFiles)
+
+const pictures = await Promise.all(
+    Object.values(pictureFiles).map((image) => image())
+)
+
+const drawingFiles = import.meta.glob('/src/assets/media/art/*.{jpeg,jpg,png,gif,webp}');
+
+const drawings = await Promise.all(
+    Object.values(drawingFiles).map((image) => image())
+)
+
 
 const pageTitle = "Media";
 ---
@@ -20,8 +34,23 @@ const pageTitle = "Media";
             </div>
         </div>
         <div class="content-container">
-            <div class="thumbnail-grid">
-                {images.map((img: any) => 
+            <div class="view-controller">
+                <button class="control-button" grid-index="1">Images</button>
+                <button class="control-button" grid-index="2">Drawings</button>
+            </div>
+            <div id="1" class="thumbnail-grid active">
+                {pictures.map((img: any) => 
+                    <div class="thumb-wrapper">
+                        <Image class="thumb" 
+                            src={img.default} 
+                            data-large={img.default.src}
+                            data-caption={'image'}
+                            alt={'image'}/> 
+                    </div>
+                )}
+            </div>
+            <div id="2" class="thumbnail-grid">
+                {drawings.map((img: any) => 
                     <div class="thumb-wrapper">
                         <Image class="thumb" 
                             src={img.default} 
@@ -55,8 +84,30 @@ const pageTitle = "Media";
     width: auto;
     /* aspect-ratio: 1/1; */
 }
-
+.view-controller {
+    display: flex;
+    gap: .2rem;
+    flex: 1;
+    max-height: 4rem;
+    margin: .3rem .4rem 0rem;
+}
+.control-button {
+    flex: 1;
+    text-align: center;
+    background: none;
+    font-family: inherit;
+    padding: 0rem;
+    font-size: 3.2rem;
+    color: var(--yellow);
+    border: 2px solid var(--yellow);
+}
+.control-button:active {
+  transform: translateY(1px);
+}
 .thumbnail-grid {
+    display: none;
+}
+.thumbnail-grid.active {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 15px;
@@ -94,6 +145,22 @@ const pageTitle = "Media";
                     largeViewer.style.display = "block";
                 }
             });
+        });
+    });
+
+    const buttons = document.querySelectorAll('.control-button');
+    const grids = document.querySelectorAll('.thumbnail-grid');
+
+    buttons.forEach(button => {
+        button.addEventListener('click', () => {
+            const targetId = button.getAttribute('grid-index');
+
+            grids.forEach(grid => grid.classList.remove('active'));
+
+            if (targetId) {
+                const targetPanel = document.getElementById(targetId);
+                if (targetPanel) targetPanel.classList.add('active');
+            }
         });
     });
 </script>
