@@ -31,7 +31,15 @@ const project = defineCollection({
     demoImage: image(),
     description: z.string(),
   }),
+});
+
+const duck = defineCollection({
+  loader: glob({ base: './src/collections/ducks', pattern: '**/*.{md,mdx}' }),
+  schema: ({image}) => z.object({
+    name: z.string(),
+    image: image(),
+  }),
 })
 
 // 5. Export a single `collections` object to register your collection(s)
-export const collections = { blog, project };
+export const collections = { blog, project, duck };

@@ -1,13 +1,26 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection, render } from 'astro:content';
 
+const ducks = await getCollection('duck');
+const pages = ducks.map(duck => `/personal-website/ducks/${duck.id}`);
 const pageTitle = "Something";
 ---
 <BaseLayout pageTitle={pageTitle}>
-  <div class="content-container">
+  <div id="data-holder" data-pages={JSON.stringify(pages)}>
   </div>
 </BaseLayout>
 
 <style>
 
 </style>
+
+<script>
+  const pageData = document.getElementById('data-holder');
+
+  if (pageData?.dataset.pages) {
+    const pages = JSON.parse(pageData?.dataset.pages);
+    const randomPage = pages[Math.floor(Math.random() * pages.length)];
+    window.location.replace(randomPage);
+  }
+</script>

@@ -13,7 +13,7 @@ const { frontmatter, postID } = Astro.props;
 <html lang="en">
   <div class="blog-post">
     <div class="head">
-        <a href={`/posts/${postID}`} class="title">{frontmatter.title}</a>
+        <a href={`/personal-website/posts/${postID}`} class="title">{frontmatter.title}</a>
         <span class="date">{frontmatter.pubDate.toString().slice(0,10)}</span>
     </div>
     <div class="info">

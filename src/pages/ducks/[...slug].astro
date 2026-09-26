@@ -1,0 +1,20 @@
+---
+import { getCollection, render } from 'astro:content';
+import Header from '../../components/Header.astro';
+import '../../assets/css/style.css';
+
+export async function getStaticPaths() {
+  const ducks = await getCollection('duck');
+  return ducks.map(duck=> ({
+    params: { slug: duck.id }, props: { duck },
+  }));
+}
+
+const { duck } = Astro.props;
+const { Content } = await render(duck);
+---
+
+<body>
+    <Header />
+    <Content />
+</body>
