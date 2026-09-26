@@ -1,5 +1,5 @@
 ---
 name: Jimin
-image: '/src/assets/media/ducks/duck_painting.png'
+image: '/src/assets/media/ducks/jimin.jpg'
 ---
-Jimin
+Tortle

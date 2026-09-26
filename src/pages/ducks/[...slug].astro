@@ -1,7 +1,7 @@
 ---
 import { getCollection, render } from 'astro:content';
-import Header from '../../components/Header.astro';
-import '../../assets/css/style.css';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { Image } from 'astro:assets';
 
 export async function getStaticPaths() {
   const ducks = await getCollection('duck');
@@ -12,9 +12,93 @@ export async function getStaticPaths() {
 
 const { duck } = Astro.props;
 const { Content } = await render(duck);
+const duckData = duck.data;
 ---
 
-<body>
-    <Header />
-    <Content />
-</body>
+<BaseLayout>
+  <div class="content-container">
+    <div class="name-card">
+      <span>Name:</span>
+      <span class="name">{duckData.name}</span>
+    </div>
+    <span class="appearance">Appearance:</span>
+    <div class="duck-container">
+      <Image class="duck-image" src={duckData.image} alt="No Image"/>
+      <div class="duck-description">
+        <Content/>
+      </div>
+    </div>
+  </div>
+  <div class="randomize-container">
+    <button class="randomize-button">
+      <span>Random</span>
+    </button>
+  </div>
+</BaseLayout>
+
+<style>
+.name-card {
+  display: flex;
+  color: white;
+  border-bottom: 2px solid white;
+  gap: .5rem;
+  font-size: 2rem;
+  padding: 0rem .3rem;
+}
+.name {
+  color: var(--yellow);
+}
+.appearance {
+  color: white;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.493);
+  gap: .5rem;
+  font-size: 2rem;
+  padding: 0rem .3rem;
+}
+.duck-container {
+  display: flex;
+  flex: 1;
+  margin: 1rem;
+  gap: 1rem;
+}
+.duck-image {
+  width: 800px;
+  height: auto;
+}
+.duck-description {
+  flex: 1;
+  padding: 1rem;
+  font-size: 2rem;
+  border: 2px solid white;
+}
+.randomize-container {
+  display: flex;
+  padding: .3rem .5rem;
+  font-size: 2rem;
+  border: 2px solid white;
+}
+.randomize-button {
+  flex: .1;
+  background: none;
+  border: 2px solid var(--yellow);
+  color: var(--yellow);
+}
+.randomize-button:active {
+  transform: translateY(1px);
+}
+.randomize-button span {
+  font-family: inherit;
+  font-size: 2rem;
+  color: var(--yellow);
+}
+</style>
+
+<script>
+  const button = document.querySelector('.randomize-button');
+
+  if (button) {
+    button.addEventListener('click', () => {
+      window.location.replace('/personal-website/something');
+    })
+  }
+</script>
