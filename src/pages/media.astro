@@ -11,8 +11,6 @@ const images = await Promise.all(
 
 const pictureFiles = import.meta.glob('/src/assets/media/images/*.{jpeg,jpg,png,gif,webp}');
 
-console.log(pictureFiles)
-
 const pictures = await Promise.all(
     Object.values(pictureFiles).map((image) => image())
 )
